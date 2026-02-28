@@ -35,3 +35,113 @@ WHERE CountryCode = 'JPN';
 SELECT NAME
 FROM CITY
 WHERE CountryCode = 'JPN';
+
+7)https://www.hackerrank.com/challenges/weather-observation-station-1/problem?isFullScreen=true
+----
+SELECT CITY, STATE
+FROM STATION;
+
+8)https://www.hackerrank.com/challenges/weather-observation-station-3/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE MOD(ID, 2) = 0;
+
+9)https://www.hackerrank.com/challenges/weather-observation-station-4/problem?isFullScreen=true
+----
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY)
+FROM STATION;
+
+10)https://www.hackerrank.com/challenges/weather-observation-station-5/problem?isFullScreen=true
+----
+SELECT CITY, LENGTH(CITY)
+FROM STATION
+ORDER BY LENGTH(CITY) DESC, CITY ASC
+LIMIT 1;
+
+11)https://www.hackerrank.com/challenges/weather-observation-station-6/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LOWER(CITY) LIKE 'a%'
+   OR LOWER(CITY) LIKE 'e%'
+   OR LOWER(CITY) LIKE 'i%'
+   OR LOWER(CITY) LIKE 'o%'
+   OR LOWER(CITY) LIKE 'u%';
+
+12)https://www.hackerrank.com/challenges/weather-observation-station-7/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LOWER(CITY) LIKE '%a'
+   OR LOWER(CITY) LIKE '%e'
+   OR LOWER(CITY) LIKE '%i'
+   OR LOWER(CITY) LIKE '%o'
+   OR LOWER(CITY) LIKE '%u';
+
+13)https://www.hackerrank.com/challenges/weather-observation-station-8/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LOWER(CITY) LIKE 'a%a'
+   OR LOWER(CITY) LIKE 'a%e'
+   OR LOWER(CITY) LIKE 'a%i'
+   OR LOWER(CITY) LIKE 'a%o'
+   OR LOWER(CITY) LIKE 'a%u'
+   OR LOWER(CITY) LIKE 'e%a'
+   OR LOWER(CITY) LIKE 'e%e'
+   OR LOWER(CITY) LIKE 'e%i'
+   OR LOWER(CITY) LIKE 'e%o'
+   OR LOWER(CITY) LIKE 'e%u'
+   OR LOWER(CITY) LIKE 'i%a'
+   OR LOWER(CITY) LIKE 'i%e'
+   OR LOWER(CITY) LIKE 'i%i'
+   OR LOWER(CITY) LIKE 'i%o'
+   OR LOWER(CITY) LIKE 'i%u'
+   OR LOWER(CITY) LIKE 'o%a'
+   OR LOWER(CITY) LIKE 'o%e'
+   OR LOWER(CITY) LIKE 'o%i'
+   OR LOWER(CITY) LIKE 'o%o'
+   OR LOWER(CITY) LIKE 'o%u'
+   OR LOWER(CITY) LIKE 'u%a'
+   OR LOWER(CITY) LIKE 'u%e'
+   OR LOWER(CITY) LIKE 'u%i'
+   OR LOWER(CITY) LIKE 'u%o'
+   OR LOWER(CITY) LIKE 'u%u';
+
+14)https://www.hackerrank.com/challenges/weather-observation-station-10/problem?isFullScreen=true
+-----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LOWER(CITY) NOT LIKE '%a'
+  AND LOWER(CITY) NOT LIKE '%e'
+  AND LOWER(CITY) NOT LIKE '%i'
+  AND LOWER(CITY) NOT LIKE '%o'
+  AND LOWER(CITY) NOT LIKE '%u';
+
+15)https://www.hackerrank.com/challenges/weather-observation-station-11/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE NOT (
+    (LOWER(CITY) LIKE 'a%' OR LOWER(CITY) LIKE 'e%' OR LOWER(CITY) LIKE 'i%' OR LOWER(CITY) LIKE 'o%' OR LOWER(CITY) LIKE 'u%')
+    AND
+    (LOWER(CITY) LIKE '%a' OR LOWER(CITY) LIKE '%e' OR LOWER(CITY) LIKE '%i' OR LOWER(CITY) LIKE '%o' OR LOWER(CITY) LIKE '%u')
+);
+
+16)https://www.hackerrank.com/challenges/weather-observation-station-12/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE LOWER(CITY) NOT LIKE 'a%'
+  AND LOWER(CITY) NOT LIKE 'e%'
+  AND LOWER(CITY) NOT LIKE 'i%'
+  AND LOWER(CITY) NOT LIKE 'o%'
+  AND LOWER(CITY) NOT LIKE 'u%'
+  AND LOWER(CITY) NOT LIKE '%a'
+  AND LOWER(CITY) NOT LIKE '%e'
+  AND LOWER(CITY) NOT LIKE '%i'
+  AND LOWER(CITY) NOT LIKE '%o'
+  AND LOWER(CITY) NOT LIKE '%u';
+
+17)
