@@ -144,4 +144,174 @@ WHERE LOWER(CITY) NOT LIKE 'a%'
   AND LOWER(CITY) NOT LIKE '%o'
   AND LOWER(CITY) NOT LIKE '%u';
 
-17)
+17)https://www.hackerrank.com/challenges/what-type-of-triangle/problem?isFullScreen=true
+----
+SELECT
+    CASE
+        WHEN A + B <= C OR A + C <= B OR B + C <= A THEN 'Not A Triangle'
+        WHEN A = B AND B = C THEN 'Equilateral'
+        WHEN A = B OR A = C OR B = C THEN 'Isosceles'
+        ELSE 'Scalene'
+    END
+FROM TRIANGLES;
+
+18)https://www.hackerrank.com/challenges/salary-of-employees/problem?isFullScreen=true
+----
+SELECT name
+FROM Employee
+WHERE salary > 2000
+  AND months < 10
+ORDER BY employee_id ASC;
+
+19)https://www.hackerrank.com/challenges/the-company/problem?isFullScreen=true
+----
+SELECT 
+    c.company_code,
+    c.founder,
+    COUNT(DISTINCT lm.lead_manager_code)     AS lead_managers,
+    COUNT(DISTINCT sm.senior_manager_code)   AS senior_managers,
+    COUNT(DISTINCT m.manager_code)           AS managers,
+    COUNT(DISTINCT e.employee_code)          AS employees
+FROM Company c
+LEFT JOIN Lead_Manager lm 
+    ON c.company_code = lm.company_code
+LEFT JOIN Senior_Manager sm 
+    ON c.company_code = sm.company_code
+LEFT JOIN Manager m 
+    ON c.company_code = m.company_code
+LEFT JOIN Employee e 
+    ON c.company_code = e.company_code
+GROUP BY c.company_code, c.founder
+ORDER BY c.company_code ASC;
+
+20)https://www.hackerrank.com/challenges/revising-aggregations-the-average-function/problem?isFullScreen=true
+----
+SELECT AVG(Population) AS AvgPopulation
+FROM CITY
+WHERE District = 'California';
+
+21)https://www.hackerrank.com/challenges/average-population/problem?isFullScreen=true
+----
+SELECT FLOOR(AVG(Population)) AS AvgPopulation
+FROM CITY;
+
+22)https://www.hackerrank.com/challenges/japan-population/problem?isFullScreen=true
+----
+SELECT SUM(Population) AS TotalPopulation
+FROM CITY
+WHERE COUNTRYCODE = 'JPN';
+
+23)https://www.hackerrank.com/challenges/earnings-of-employees/problem?isFullScreen=true
+----
+SELECT 
+    MAX(months * salary) AS MaxEarnings,
+    COUNT(*) AS NumEmployees
+FROM Employee
+WHERE months * salary = (SELECT MAX(months * salary) FROM Employee);
+
+24)https://www.hackerrank.com/challenges/contest-leaderboard/problem?isFullScreen=true
+----
+SELECT 
+    h.hacker_id,
+    h.name,
+    SUM(s.max_score) AS total_score
+FROM Hackers h
+JOIN (
+    SELECT 
+        hacker_id, 
+        challenge_id, 
+        MAX(score) AS max_score
+    FROM Submissions
+    GROUP BY hacker_id, challenge_id
+) s ON h.hacker_id = s.hacker_id
+GROUP BY h.hacker_id, h.name
+HAVING SUM(s.max_score) > 0
+ORDER BY total_score DESC, h.hacker_id ASC;
+
+25)https://www.hackerrank.com/challenges/placements/problem?isFullScreen=true
+----
+SELECT s.Name
+FROM Students s
+JOIN Friends f ON s.ID = f.ID
+JOIN Packages p_student ON s.ID = p_student.ID
+JOIN Packages p_friend ON f.Friend_ID = p_friend.ID
+WHERE p_friend.Salary > p_student.Salary
+ORDER BY p_friend.Salary;
+
+26)https://www.hackerrank.com/challenges/harry-potter-and-wands/problem?isFullScreen=true
+----
+SELECT 
+    w.id,
+    wp.age,
+    w.coins_needed,
+    w.power
+FROM Wands w
+JOIN Wands_Property wp ON w.code = wp.code
+WHERE wp.is_evil = 0
+  AND w.coins_needed = (
+      SELECT MIN(w2.coins_needed)
+      FROM Wands w2
+      JOIN Wands_Property wp2 ON w2.code = wp2.code
+      WHERE wp2.age = wp.age
+        AND wp2.is_evil = 0
+        AND w2.power = w.power
+  )
+ORDER BY w.power DESC, wp.age DESC;
+
+27)https://www.hackerrank.com/challenges/challenges/problem?isFullScreen=true
+----
+WITH ChallengeCounts AS (
+    SELECT 
+        h.hacker_id,
+        h.name,
+        COUNT(c.challenge_id) AS total_challenges
+    FROM Hackers h
+    LEFT JOIN Challenges c ON h.hacker_id = c.hacker_id
+    GROUP BY h.hacker_id, h.name
+),
+MaxCount AS (
+    SELECT MAX(total_challenges) AS max_challenges
+    FROM ChallengeCounts
+)
+SELECT 
+    hacker_id,
+    name,
+    total_challenges
+FROM ChallengeCounts
+WHERE total_challenges = (SELECT max_challenges FROM MaxCount)
+   OR total_challenges NOT IN (
+        SELECT total_challenges
+        FROM ChallengeCounts
+        GROUP BY total_challenges
+        HAVING COUNT(*) > 1 AND total_challenges < (SELECT max_challenges FROM MaxCount)
+   )
+ORDER BY total_challenges DESC, hacker_id;
+
+28)https://www.hackerrank.com/challenges/average-population-of-each-continent/problem?isFullScreen=true
+----
+SELECT 
+    co.Continent,
+    FLOOR(AVG(ci.Population)) AS AvgCityPopulation
+FROM CITY ci
+JOIN COUNTRY co ON ci.CountryCode = co.Code
+GROUP BY co.Continent;
+
+29)https://www.hackerrank.com/challenges/african-cities/problem?isFullScreen=true
+----
+SELECT ci.Name
+FROM CITY ci
+JOIN COUNTRY co ON ci.CountryCode = co.Code
+WHERE co.Continent = 'Africa';
+
+30)https://www.hackerrank.com/challenges/draw-the-triangle-1/problem?isFullScreen=true
+----
+WITH RECURSIVE Numbers AS (
+    SELECT 20 AS n
+    UNION ALL
+    SELECT n - 1
+    FROM Numbers
+    WHERE n > 1
+)
+SELECT REPEAT('* ', n) AS Pattern
+FROM Numbers
+ORDER BY n DESC;
