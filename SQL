@@ -315,3 +315,98 @@ WITH RECURSIVE Numbers AS (
 SELECT REPEAT('* ', n) AS Pattern
 FROM Numbers
 ORDER BY n DESC;
+
+31)https://www.hackerrank.com/challenges/weather-observation-station-1/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY, STATE
+FROM STATION
+ORDER BY CITY, STATE;
+
+32)https://www.hackerrank.com/challenges/weather-observation-station-5/problem?isFullScreen=true
+----
+SELECT CITY, LENGTH(CITY) AS CITY_LENGTH
+FROM STATION
+ORDER BY LENGTH(CITY), CITY
+LIMIT 1;
+SELECT CITY, LENGTH(CITY) AS CITY_LENGTH
+FROM STATION
+ORDER BY LENGTH(CITY) DESC, CITY
+LIMIT 1;
+
+33)https://www.hackerrank.com/challenges/weather-observation-station-10/problem?isFullScreen=true
+----
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT LIKE '%a'
+  AND CITY NOT LIKE '%e'
+  AND CITY NOT LIKE '%i'
+  AND CITY NOT LIKE '%o'
+  AND CITY NOT LIKE '%u';
+
+
+34)https://www.hackerrank.com/challenges/name-of-employees/problem?isFullScreen=true
+----
+SELECT name
+FROM Employee
+ORDER BY name;
+
+35)https://www.hackerrank.com/challenges/occupations/problem?isFullScreen=true
+----
+SELECT
+    MAX(CASE WHEN Occupation = 'Doctor'    THEN Name END) AS Doctor,
+    MAX(CASE WHEN Occupation = 'Professor' THEN Name END) AS Professor,
+    MAX(CASE WHEN Occupation = 'Singer'    THEN Name END) AS Singer,
+    MAX(CASE WHEN Occupation = 'Actor'     THEN Name END) AS Actor
+FROM (
+    SELECT Name, Occupation,
+           ROW_NUMBER() OVER (PARTITION BY Occupation ORDER BY Name) AS rn
+    FROM OCCUPATIONS
+) AS ranked
+GROUP BY rn
+ORDER BY rn;
+
+36)https://www.hackerrank.com/challenges/population-density-difference/problem?isFullScreen=true
+----
+SELECT MAX(population) - MIN(population) AS population_difference
+FROM CITY;
+
+37)https://www.hackerrank.com/challenges/the-blunder/problem?isFullScreen=true
+----
+SELECT CEIL(ABS(
+    AVG(CAST(REPLACE(Salary,'0','') AS UNSIGNED)) - AVG(Salary)
+)) AS Salary_Error
+FROM EMPLOYEES;
+
+38)https://www.hackerrank.com/challenges/weather-observation-station-2/problem?isFullScreen=true
+---
+SELECT 
+    ROUND(SUM(LAT_N), 2) AS lat,
+    ROUND(SUM(LONG_W), 2) AS lon
+FROM STATION;
+
+39)https://www.hackerrank.com/challenges/revising-aggregations-sum/problem?isFullScreen=true
+----
+SELECT SUM(Population) AS total_population
+FROM CITY
+WHERE District = 'California';
+
+40)SELECT SUM(CITY.Population) AS total_population
+----
+SELECT SUM(CITY.Population) AS total_population
+FROM CITY
+JOIN COUNTRY ON CITY.CountryCode = COUNTRY.Code
+WHERE COUNTRY.Continent = 'Asia';
+
+41)https://www.hackerrank.com/challenges/draw-the-triangle-2/problem?isFullScreen=true
+----
+WITH RECURSIVE numbers AS (
+    SELECT 1 AS n
+    UNION ALL
+    SELECT n + 1
+    FROM numbers
+    WHERE n < 20
+)
+SELECT REPEAT('* ', n) AS pattern
+FROM numbers;
+
+42)
