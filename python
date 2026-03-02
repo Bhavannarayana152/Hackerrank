@@ -119,3 +119,212 @@ second_lowest_students.sort()
 # Print names
 for name in second_lowest_students:
     print(name)
+
+11)https://www.hackerrank.com/challenges/finding-the-percentage/problem?isFullScreen=true
+----
+n = int(input())
+student_marks = {}
+
+for _ in range(n):
+    name, *marks = input().split()
+    student_marks[name] = list(map(float, marks))
+
+query_name = input().strip()
+
+average = sum(student_marks[query_name]) / len(student_marks[query_name])
+print("{:.2f}".format(average))
+
+12)https://www.hackerrank.com/challenges/python-lists/problem?isFullScreen=true
+----
+# Initialize the list
+lst = []
+
+# Read number of commands
+N = int(input())
+
+# Execute each command
+for _ in range(N):
+    command = input().strip()
+    if command.startswith("insert"):
+        _, i, e = command.split()
+        lst.insert(int(i), int(e))
+    elif command.startswith("print"):
+        print(lst)
+    elif command.startswith("remove"):
+        _, e = command.split()
+        lst.remove(int(e))
+    elif command.startswith("append"):
+        _, e = command.split()
+        lst.append(int(e))
+    elif command.startswith("sort"):
+        lst.sort()
+    elif command.startswith("pop"):
+        lst.pop()
+    elif command.startswith("reverse"):
+        lst.reverse()
+
+13)https://www.hackerrank.com/challenges/python-string-split-and-join/problem?isFullScreen=true
+----
+def split_and_join(line):
+    return "-".join(line.split(" "))
+
+14)https://www.hackerrank.com/challenges/whats-your-name/problem?isFullScreen=true
+----
+#
+# Complete the 'print_full_name' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts following parameters:
+#  1. STRING first
+#  2. STRING last
+#
+
+def print_full_name(first, last):
+    print(f"Hello {first} {last}! You just delved into python.")
+
+
+15)https://www.hackerrank.com/challenges/python-string-formatting/problem?isFullScreen=true
+----
+def print_formatted(number):
+    width = len(bin(number)) - 2  # length of binary representation
+    
+    for i in range(1, number + 1):
+        dec = str(i).rjust(width)
+        octal = oct(i)[2:].rjust(width)
+        hexa = hex(i)[2:].upper().rjust(width)
+        binary = bin(i)[2:].rjust(width)
+        
+        print(dec, octal, hexa, binary)
+
+16)https://www.hackerrank.com/challenges/itertools-product/problem?isFullScreen=true
+----
+from itertools import product
+
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+
+result = list(product(A, B))
+
+for t in result:
+    print(t, end=" ")
+
+17)https://www.hackerrank.com/challenges/itertools-permutations/problem?isFullScreen=true
+----
+
+from itertools import permutations
+
+# Read input
+s, k = input().split()
+k = int(k)
+
+# Generate permutations in lexicographic order
+for p in permutations(sorted(s), k):
+    print("".join(p))
+
+18)https://www.hackerrank.com/challenges/py-introduction-to-sets/problem?isFullScreen=true
+----
+def average(array):
+    distinct = set(arr)
+    return round(sum(distinct) / len(distinct), 3)
+
+
+19)https://www.hackerrank.com/challenges/no-idea/problem?isFullScreen=true
+----
+n, m = map(int, input().split())
+arr = list(map(int, input().split()))
+
+A = set(map(int, input().split()))
+B = set(map(int, input().split()))
+
+happiness = 0
+
+for x in arr:
+    if x in A:
+        happiness += 1
+    elif x in B:
+        happiness -= 1
+
+print(happiness)
+
+20)https://www.hackerrank.com/challenges/symmetric-difference/problem?isFullScreen=true
+----
+m = int(input())
+a = set(map(int, input().split()))
+
+n = int(input())
+b = set(map(int, input().split()))
+
+result = sorted(a.symmetric_difference(b))
+
+for x in result:
+    print(x)
+
+21)https://www.hackerrank.com/challenges/itertools-combinations/problem?isFullScreen=true
+----
+from itertools import combinations
+
+# Read input
+s, k = input().split()
+k = int(k)
+
+# Sort string to ensure lexicographic order
+s = sorted(s)
+
+# Generate all combinations of lengths 1 to k
+for i in range(1, k + 1):
+    for combo in combinations(s, i):
+        print("".join(combo))
+
+22)https://www.hackerrank.com/challenges/py-set-add/problem?isFullScreen=true
+----
+n = int(input())
+countries = set()
+
+for _ in range(n):
+    countries.add(input().strip())
+
+print(len(countries))
+
+23)https://www.hackerrank.com/challenges/itertools-combinations-with-replacement/problem?isFullScreen=true
+----
+from itertools import combinations_with_replacement
+
+# Read input
+s, k = input().split()
+k = int(k)
+
+# Sort string to ensure lexicographic order
+s = sorted(s)
+
+# Generate combinations with replacement
+for combo in combinations_with_replacement(s, k):
+    print("".join(combo))
+
+24)https://www.hackerrank.com/challenges/compress-the-string/problem?isFullScreen=true
+----
+from itertools import groupby
+
+s = input().strip()
+
+for key, group in groupby(s):
+    count = len(list(group))
+    print((count, int(key)), end=" ")
+
+25)https://www.hackerrank.com/challenges/iterables-and-iterators/problem?isFullScreen=true
+----
+from itertools import combinations
+
+n = int(input())
+letters = input().split()
+k = int(input())
+
+indices = list(range(n))
+total = 0
+favorable = 0
+
+for comb in combinations(indices, k):
+    total += 1
+    if any(letters[i] == 'a' for i in comb):
+        favorable += 1
+
+print(f"{favorable / total:.4f}")
