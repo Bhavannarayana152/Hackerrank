@@ -367,3 +367,88 @@ int main() {
     return 0;
 }
 ​
+16)https://www.hackerrank.com/challenges/post-transition/problem?isFullScreen=true
+-----
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Package structure
+typedef struct {
+    char id[51];
+    int weight;
+} Package;
+
+// Post office structure
+typedef struct {
+    Package* packages;
+    int package_count;
+    int min_weight;
+    int max_weight;
+} PostOffice;
+
+// Town structure
+typedef struct {
+    char name[51];
+    PostOffice* offices;
+    int office_count;
+} Town;
+
+// Function to print all packages in a town
+void print_town(Town* town) {
+    printf("%s:\n", town->name);
+    for (int i = 0; i < town->office_count; i++) {
+        printf("\t%d:\n", i);
+        for (int j = 0; j < town->offices[i].package_count; j++) {
+            printf("\t\t%s\n", town->offices[i].packages[j].id);
+        }
+    }
+}
+
+// Function to find a town by name
+Town* find_town(Town* towns, int town_count, char* name) {
+    for (int i = 0; i < town_count; i++) {
+        if (strcmp(towns[i].name, name) == 0) {
+            return &towns[i];
+        }
+    }
+    return NULL; // guaranteed to exist
+}
+
+// Function to transfer packages from one post office to another
+void transfer_packages(PostOffice* src, PostOffice* dest) {
+    int new_dest_count = dest->package_count;
+    // Count how many packages will be accepted
+    for (int i = 0; i < src->package_count; i++) {
+        if (src->packages[i].weight >= dest->min_weight &&
+            src->packages[i].weight <= dest->max_weight) {
+            new_dest_count++;
+        }
+    }
+
+    // Reallocate destination packages array
+    dest->packages = realloc(dest->packages, new_dest_count * sizeof(Package));
+
+    int accepted_index = dest->package_count; // start adding at tail
+    int remaining_index = 0; // index for packages staying in src
+    for (int i = 0; i < src->package_count; i++) {
+        if (src->packages[i].weight >= dest->min_weight &&
+            src->packages[i].weight <= dest->max_weight) {
+            dest->packages[accepted_index++] = src->packages[i];
+        } else {
+            src->packages[remaining_index++] = src->packages[i];
+        }
+    }
+    src->package_count = remaining_index;
+    dest->package_count = new_dest_count;
+}
+
+// Function to find the town with the most packages
+Town* town_with_most_packages(Town* towns, int town_count) {
+    int max_packages = -1;
+    Town* max_town = NULL;
+    for (int i = 0; i < town_count; i++) {
+        int sum = 0;
+        for (int j = 0; j < towns[i].office_count; j++) {
+            sum += towns[i].offices[j].package_count;
+        }
